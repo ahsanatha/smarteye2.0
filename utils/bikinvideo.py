@@ -4,21 +4,22 @@ import os
 pathVid = []
 def generateAllVideo():
     global pathVid
-    wildCamera = glob.glob('..\\static\\Camera *')
+    wildCamera = glob.glob('Res *')
     for i in wildCamera:
-        filename = i.split("\\")[2]
+        filename = i.split("\\")[0]
         id = filename.split()[1]
-        # filename = filename.split()[0]+'_'+filename.split()[1]
         print(">>>>>>>>>>>>>>>>>>>>>>>>",filename, id)
-        pathVid.append('../static/vid/'+filename)
-        os.system('ffmpeg -framerate 10 -i "'+i+'"/'+'%d.jpg ../static/vid/"'+filename+'".mp4')
-        os.system('ffmpeg -i ../static/vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+str(id)+'-init.m4s -media_seg_name '+str(id)+'-$Time$.m4s ../static/vid/"'+filename+'".mpd')
+        os.system('ffmpeg -framerate 30 -i "'+i+'"/'+'%d.jpg vid/"'+filename+'".mp4')
+        os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
 
-def generateSuspectVideo(filepath, start):
-    filename = 'suspect'+filepath.split('\\')[2]
+def generateSuspectVideo(filepath):
+    cam = filepath.split(' ')[1]
+    filename = 'suspect'+cam
+    frames = set([int(i[0]) for i in [i[1].split('.') for i in [i.split('\\') for i in glob.glob('Res '+str(cam)+'\\*.jpg')]]])
+    start = min(frames)
     id = filename
-    os.system('ffmpeg -framerate 10 -i "'+filepath+'"\\'+'%d.jpg  static/vid/"'+filename+'".mp4')
-    os.system('ffmpeg -i static/vid/"'+filename+'".mp4 -codec copy -f dash -min_seg_duration 30 -init_seg_name '+str(id)+'-init.m4s -media_seg_name '+str(id)+'-$Time$.m4s static/vid/"'+filename+'".mpd')
+    os.system('ffmpeg -framerate 30  -start_number '+str(start)+' -i "'+filepath+'"\\'+'%d.jpg  vid/"'+filename+'".mp4')
+    os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -min_seg_duration 30 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
     return filename+'.mp4'
     
 def convertToMPD(pathVid):
@@ -28,6 +29,6 @@ def apahayo():
     return "apaaa"
 
 if __name__ == "__main__":
-    generateAllVideo()
-    # convertToMPD(pathVid)
-    # print(pathVid)
+    # generateAllVideo()
+    for i in glob.glob('Res *'):
+        print(generateSuspectVideo(i))
