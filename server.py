@@ -8,12 +8,23 @@ import shutil
 
 app = Flask(__name__)
 
-@app.route('/dashboard', methods=['POST'])
+@app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
-    if (request.form.get('Username') == 'admin' and request.form.get('admin')):
-        return render_template('dashboard.html')
-    else:
-        return home()
+    wildCamera = glob.glob('static\\Camera *')
+    cameras = []
+    for i in wildCamera:
+        filename = i.split("\\")[1]
+        id = filename.split()[1]
+        cameras.append(filename)
+    if request.method == 'GET':
+        camera = "Camera 0"
+    elif request.method == "POST":
+        if request.form.get("Camera") is None:
+            camera = "Camera 0"
+        else :
+            camera = request.form.get('Camera')
+    return render_template('dashboard.html', cameras = cameras, camera=camera)
+    
 
 @app.route('/')
 def home():
