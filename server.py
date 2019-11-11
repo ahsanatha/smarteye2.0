@@ -30,20 +30,6 @@ def dashboard():
 def home():
     return render_template('login.html')
 
-@app.route('/test',methods=['GET', 'POST'])
-def test():
-    wildCamera = glob.glob('static\\Camera *')
-    cameras = []
-    for i in wildCamera:
-        filename = i.split("\\")[1]
-        id = filename.split()[1]
-        cameras.append(filename)
-    if request.method == 'GET':
-        camera = "Camera 0"
-    elif request.method == "POST":
-        camera = request.form.get("Camera")
-    return render_template('index.html', cameras = cameras, camera=camera)
-
 @app.route('/findSuspect', methods=["POST"])
 def getFrame():
     cam = request.form.get('camera')
