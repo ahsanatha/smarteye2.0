@@ -8,21 +8,26 @@ import shutil
 
 app = Flask(__name__)
 
+cam_name = "Rec "
+
 @app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
-    wildCamera = glob.glob('static\\Camera *')
+    global cam_name
+    wildCamera = glob.glob('static\\'+cam_name+'*')
     cameras = []
     for i in wildCamera:
         filename = i.split("\\")[1]
         id = filename.split()[1]
         cameras.append(filename)
     if request.method == 'GET':
-        camera = "Camera 0"
+        camera = cam_name+"0"
     elif request.method == "POST":
         if request.form.get("Camera") is None:
-            camera = "Camera 0"
+            camera = cam_name+"0"
         else :
             camera = request.form.get('Camera')
+    if not os.path.exists(camera+'.mpd'):
+        os.mkdir(camera+'.mpd')
     return render_template('dashboard.html', cameras = cameras, camera=camera)
     
 
@@ -55,7 +60,9 @@ def getFrame():
     else :
         path = 'None'
     return path
+
+    
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(host="0.0.0.0" ,debug = True)
+    app.run(debug = True)

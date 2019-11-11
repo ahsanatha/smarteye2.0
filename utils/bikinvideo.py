@@ -12,6 +12,15 @@ def generateAllVideo():
         os.system('ffmpeg -framerate 30 -i "'+i+'"/'+'%d.jpg vid/"'+filename+'".mp4')
         os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
 
+def generateOneVideo(filepath):
+    global pathVid
+    filename = filepath.split("\\")[1]
+    id = filename.split()[1]
+    print(">>>>>>>>>>>>>>>>>>>>>>>>",filename, id)
+    os.system('ffmpeg -framerate 30 -i "'+i+'"/'+'%d.jpg vid/"'+filename+'".mp4')
+    os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
+
+
 def generateSuspectVideo(filepath):
     cam = filepath.split(' ')[1]
     filename = 'suspect'+cam
