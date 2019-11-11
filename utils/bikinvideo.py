@@ -15,11 +15,11 @@ def generateAllVideo():
 def generateOneVideo(filepath):
     global pathVid
     filename = filepath.split("\\")[1]
-    id = filename.split()[1]
+    filename = filename.split()[0]+'_'+filename.split()[1]
     print(">>>>>>>>>>>>>>>>>>>>>>>>",filename, id)
-    os.system('ffmpeg -framerate 30 -i "'+i+'"/'+'%d.jpg vid/"'+filename+'".mp4')
-    os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
-
+    os.system('ffmpeg -framerate 30 -i "'+filepath+'"/'+'%d.jpg static/vid/"'+filename+'".mp4')
+    os.system('ffmpeg -i static/vid/"'+filename+'".mp4 -codec copy -f dash -window_size 10 -min_seg_duration 30 -use_timeline 1 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s static/vid/"'+filename+'".mpd')
+    return filename
 
 def generateSuspectVideo(filepath):
     cam = filepath.split(' ')[1]
@@ -30,14 +30,8 @@ def generateSuspectVideo(filepath):
     os.system('ffmpeg -framerate 30  -start_number '+str(start)+' -i "'+filepath+'"\\'+'%d.jpg  vid/"'+filename+'".mp4')
     os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -min_seg_duration 30 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
     return filename+'.mp4'
-    
-def convertToMPD(pathVid):
-    for i in pathVid:
-        os.system('ffmpeg -i '+i+'.mp4 -c copy -f dash ../static/vid/Camera_0.mpd')
-def apahayo():
-    return "apaaa"
 
 if __name__ == "__main__":
-    # generateAllVideo()
-    for i in glob.glob('Res *'):
-        print(generateSuspectVideo(i))
+    generateAllVideo()
+    # for i in glob.glob('Res *'):
+    #     print(generateSuspectVideo(i))

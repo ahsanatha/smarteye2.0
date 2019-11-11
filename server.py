@@ -1,7 +1,7 @@
 from flask import Flask, escape, request, render_template
 import glob
 import json
-from utils.bikinvideo import generateSuspectVideo
+from utils.bikinvideo import generateSuspectVideo, generateOneVideo
 from utils.find_suspect import find_suspect, find_idx_suspect
 import os
 import shutil
@@ -26,9 +26,11 @@ def dashboard():
             camera = cam_name+"0"
         else :
             camera = request.form.get('Camera')
-    if not os.path.exists(camera+'.mpd'):
-        os.mkdir(camera+'.mpd')
-    return render_template('dashboard.html', cameras = cameras, camera=camera)
+    if not os.path.exists('static\\vid\\'+camera.split()[0]+'_'+camera.split()[1]+'.mpd'):
+        camera = generateOneVideo('static\\'+camera)
+        return render_template('dashboard.html', cameras = cameras, camera=camera)
+    else :
+        return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
     
 
 @app.route('/')
@@ -54,7 +56,6 @@ def getFrame():
             find_suspect(cam, frame_num, suspect_ft, target_dir + str(cam), 'backward')
         frames = set([int(i[0]) for i in [i[3].split('.') for i in [i.split('\\') for i in glob.glob('static\\res\\'+str(cam)+'\\*.jpg')]]])
         first_frame = min(frames)
-        # last_frame = len(frames)
         print(first_frame)
         path = generateSuspectVideo('static\\res\\'+str(cam), first_frame)
     else :
