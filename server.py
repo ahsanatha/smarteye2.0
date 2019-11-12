@@ -31,7 +31,12 @@ def dashboard():
         return render_template('dashboard.html', cameras = cameras, camera=camera)
     else :
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
-    
+
+@app.route('/fetch/bbox', methods=['GET'])
+def bbox():
+    with open('0.json') as json_file:
+        print(json_file)
+        return json_file
 
 @app.route('/')
 def home():

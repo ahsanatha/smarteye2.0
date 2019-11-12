@@ -1,0 +1,126 @@
+{
+    "feature": [
+        {
+            "ft": []
+        },
+        {
+            "ft": []
+        }
+    ],
+    "footage": [
+        [
+            {
+                "id": "0",
+                "mpd": "http://192.168.0.110:5000/static/vid/suspect0.mpd",
+                "place": "AI Lab",
+                "thumbnail": "http://192.168.0.110:5000/static/Res%200/270.jpg",
+                "time": "12:09:41"
+            },
+            {
+                "id": "1",
+                "mpd": "http://192.168.0.110:5000/static/vid/suspect1.mpd",
+                "place": "Gd E",
+                "thumbnail": "http://192.168.0.110:5000/static/Res%201/240.jpg",
+                "time": "12:10:40"
+            },
+            {
+                "id": "2",
+                "mpd": "http://192.168.0.110:5000/static/vid/suspect2.mpd",
+                "place": "Parking Lot",
+                "thumbnail": "http://192.168.0.110:5000/static/Res%202/281.jpg",
+                "time": "12:13:52"
+            }
+        ],
+        [
+            {
+                "id": "0",
+                "mpd": "http://192.168.0.110:5000/static/vid/Camera%200.mpd",
+                "place": "Asrama",
+                "thumbnail": "http://192.168.0.110:5000/static/Camera%201/100.jpg",
+                "time": "04:09:41"
+            }
+        ]
+    ],
+    "live": [
+        {
+            "image": "http://192.168.0.110:5000/static/Res%200/227.jpg",
+            "place": "GKU"
+        },
+        {
+            "image": "http://192.168.0.110:5000/static/Camera%201/100.jpg",
+            "place": "Lab AI"
+        }
+    ],
+    "report": [
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "0",
+            "image": "http://192.168.0.110:5000/static/Res%200/370.jpg",
+            "place": "Lab AI",
+            "reporter": "Malik Anhar",
+            "time": "14:46:13",
+            "title": "A man stole handphone"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "1",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama",
+            "reporter": "Dhamir",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "2",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama2",
+            "reporter": "Dhamir2",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle2"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "3",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama2",
+            "reporter": "Dhamir2",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle2"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "2",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama2",
+            "reporter": "Dhamir2",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle2"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "2",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama2",
+            "reporter": "Dhamir2",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle2"
+        },
+        {
+            "date": "2019-11-09",
+            "elapsed": 1573284951.7094495,
+            "id": "2",
+            "image": "http://192.168.0.110:5000/static/Camera%204/0.jpg",
+            "place": "Asrama2",
+            "reporter": "Dhamir2",
+            "time": "14:46:09",
+            "title": "A man stole motorcycle2"
+        }
+    ]
+}
