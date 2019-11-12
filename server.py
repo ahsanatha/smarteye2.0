@@ -59,13 +59,11 @@ def getFrame():
     with open('static\\Json Result '+cam+'\\result.json') as json_file:
         data = json.load(json_file)
     selectedData = data['data'][int(frameId)]['object']
-    # print(selectedData)
     suspect_ft = selectedData[0]['feature']
     target_dir = 'static/Res '+cam
     print('target dir', target_dir)
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
-    # print(suspect_ft)
     if len(suspect_ft) > 0 :
         frame_num, suspect_idx = find_idx_suspect(cam, suspect_ft, target_dir + str(cam))
         if (frame_num is not -1):
