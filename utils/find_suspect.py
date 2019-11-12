@@ -17,14 +17,15 @@ def similarity_score(predicts, currents):
     return np.mean(fin, axis=1)
 
 def find_idx_suspect(cam_idx, suspect_ft, target_dir):
-    with open('Json result ' + str(cam_idx) +'/result.json') as json_file:
+    print('start find_idx_suspect')
+    with open('static/Json result ' + str(cam_idx) +'/result.json') as json_file:
         data = json.load(json_file)
 
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
 
     for i,dt in enumerate(data['data']):
-        image = cv2.imread(dt['image'])
+        image = cv2.imread('static/'+dt['image'])
         sim = []
         bbox = []
         for j,dd in enumerate(dt['object']):
@@ -35,7 +36,7 @@ def find_idx_suspect(cam_idx, suspect_ft, target_dir):
                 bbox.append(bb)
         if len(sim)>0:
             idx_suspect = np.argmax(sim)
-            print(i, sim, idx_suspect)
+            # print(i, sim, idx_suspect)
             if sim[idx_suspect] > 0.9:
                 rc_img = cv2.rectangle(image.copy(), (bbox[idx_suspect][1], bbox[idx_suspect][0]), (bbox[idx_suspect][3], bbox[idx_suspect][2]), (0,0,255), 2)
                 cv2.imwrite(target_dir + '/' + os.path.basename(dt['image']), rc_img)
@@ -43,10 +44,11 @@ def find_idx_suspect(cam_idx, suspect_ft, target_dir):
     return -1, -1 
 
 def find_suspect(cam_idx, frame_num, suspect_ft, target_dir, size, goes='forward'):
+    print('start find_suspect')
     max_age = 0
 
     # Open Json from start time (suspect picked) until end time (reporting time)
-    with open('Json result ' + str(cam_idx) +'/result.json') as json_file:
+    with open('static/Json result ' + str(cam_idx) +'/result.json') as json_file:
         data = json.load(json_file)
 
     # Create a list to save suspect's feature caught by tracking algorithm
@@ -69,7 +71,7 @@ def find_suspect(cam_idx, frame_num, suspect_ft, target_dir, size, goes='forward
         # Get i-th data
         dt = data['data'][i]
         # Open i-th image
-        image = cv2.imread(dt['image'])
+        image = cv2.imread('static/'+dt['image'])
         
         # Get predicted feature (in future we don't need to extract the feature since its already saved from live running webcam)
         features = [] 
@@ -87,7 +89,7 @@ def find_suspect(cam_idx, frame_num, suspect_ft, target_dir, size, goes='forward
         if len(features) > 0:
             preds = similarity_score(features, current_features)
             id_pred = np.argmax(preds)
-            print(i, preds, id_pred)
+            # print(i, preds, id_pred)
             if preds[id_pred] > 0.8:
                 current_features.append(features[id_pred])
                 if len(current_features) > 10:
@@ -105,3 +107,4 @@ def find_suspect(cam_idx, frame_num, suspect_ft, target_dir, size, goes='forward
             max_age += 1
         if max_age > 29:
             break
+    print('done find_suspect')

@@ -1,0 +1,93 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <style>
+        #side1 h2 {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+        }
+
+        #buildings .gedung {
+            padding: 14px 10px;
+        }
+
+        #caml1 {
+            display: none;
+        }
+
+        #caml2 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='menu'>
+        <h1>Smart<br />Eye</h1>
+        <a href='#' id="dashboard" class='butt'>
+            <div></div>
+            <span>Dashboard</span>
+        </a>
+        <div id='menu'>
+            <h1>Smart<br />Eye</h1>
+
+
+            <a href='#' id="dashboard" class='butt'>
+                <div></div>
+                <span>Dashboard</span>
+            </a>
+
+            <a href='#' id="profile" class='butt'>
+                <div></div>
+                <span>Profile</span>
+            </a>
+
+            <a href="/" id="logout" class='butt'>
+                <div></div>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </div>
+    <div id='main'>
+        <div id='side1'>
+            <h2>CCTV</h2>
+            <div id='buildings'>
+                <div class='gedung' id='A'>Gedung A</div>
+                <div id='caml1' class='caml'>
+                    <a href="/cam/1">cam1</a>
+                </div>
+                <div class='gedung' id='B'>Gedung B</div>
+                <div id='caml2' class='caml'>
+                    <a href="/cam/2">cam2</a>
+                </div>
+                <div class='gedung'>Gedung C</div>
+                <div class='gedung'>Gedung D</div>
+            </div>
+        </div>
+        <div id='side2'>
+            <!-- <h1>Current time:</h1>
+        <div id='cur'></div>
+        <button onclick="getCurTime()">Get time</button>
+        <video id='vid' autoplay="" preload="none" controls="true">
+            <source src="http://10.20.32.40:3000/v1/smarteye/video/playback" type="application/dash+xml"> -->
+            <!-- <source src="https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd" type="application/dash+xml">
+            <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+        </video> -->
+
+        {% block camera %} {% endblock %}
+        </div>
+    </div>
+    <!-- <script>
+        var vid = document.getElementById("vid");
+        var out = document.getElementById("cur");
+        
+        function getCurTime() { 
+            out.innerHTML = vid.currentTime;
+          // alert(vid.currentTime);
+        } 
+            </script> -->
+    <script src="../static/js/dashboard.js"></script>
+</body>
+</html>

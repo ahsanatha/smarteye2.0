@@ -1,0 +1,52 @@
+{% extends 'dash.html' %}
+{% block camera %}
+<div class='ha2'>
+    Pick The Suspect
+</div>
+<div class='dimana'>
+    Gedung A - Cam1
+</div>
+<div class='timestamp'>
+    18:00:01 - 21 September 2019
+</div>
+<div class='vid'>
+    <div class='vid-mask' style="max-width:600px; margin:0 auto">
+        <div id='framer'>PAUSED, AMBIL FRAME TARO DI SINI</div>
+        <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_0.mpd') }}">
+        </video>
+    </div>
+</div>
+<div class='laporkan' id='laporkan'>LAPORKAN</div>
+<div id='pelapor'>
+    <h2>Apa yang terjadi?</h2>
+    <input type='text' name='laporan' placeholder='Example: Pencurian Sepatu'>
+    <br>
+    <div class='flexlapor'>
+        <a href='#' id='lapor'>LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
+    </div>
+</div>
+
+<div class='ha2'>
+    Suspect Path
+</div>
+<div class='vidgrid'>
+    <div class="col" style="max-width:300px; margin:0 auto">
+        <div class='vid-mask' >
+            <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
+            </video>
+        </div>
+        <h3>Footage 1</h3>
+        <h4>Gedung A cam 1</h4>
+    </div>
+    <div class="col" style="max-width:300px; margin:0 auto">
+        <div class='vid-mask'>
+                <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
+                </video>
+        </div>
+        <h3>Footage 2</h3>
+        <h4>Gedung A cam 2</h4>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
