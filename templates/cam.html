@@ -12,9 +12,6 @@
 <div class='vid'>
     <div class='vid-mask' style="max-width:600px; margin:0 auto">
         <div id='framer'>PAUSED, AMBIL FRAME TARO DI SINI</div>
-        <!-- <video id='vid' autoplay="" preload="none"  src="static/vid/{{ camera }}.mpd"controls="true">
-            <source src="static/vid/{{ camera }}.mpd" type="video/mpd">
-        </video> -->
         <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_0.mpd') }}">
         </video>
     </div>

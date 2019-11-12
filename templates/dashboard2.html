@@ -7,7 +7,7 @@
 {% block sidebar %}
 <a href="/">
   <button class="container">
-    <img src="static/img/dashboard.png" alt="dashboard">
+    <img src="{{ url_for('static', filename='img/dashboard.png') }}" alt="dashboard">
   </button>
   <img class="selected" src="static/img/selected.jpg" alt="">
 </a>
