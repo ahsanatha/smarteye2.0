@@ -32,6 +32,13 @@ def dashboard():
     else :
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
     
+@app.route('/dash')
+def dash():
+    return render_template('dash.html')
+
+@app.route('/base')
+def base():
+    return render_template('base.html')
 
 @app.route('/')
 def home():
@@ -55,8 +62,8 @@ def getFrame():
     if len(suspect_ft) > 0 :
         frame_num, suspect_idx = find_idx_suspect(cam, suspect_ft, target_dir + str(cam))
         if (frame_num is not -1):
-            find_suspect(cam, frame_num, suspect_ft, target_dir + str(cam), 'forward')
-            find_suspect(cam, frame_num, suspect_ft, target_dir + str(cam), 'backward')
+            find_suspect(cam, frame_num, suspect_ft, target_dir, 'forward')
+            find_suspect(cam, frame_num, suspect_ft, target_dir, 'backward')
         path = generateSuspectVideo(target_dir)
     else :
         path = 'None'

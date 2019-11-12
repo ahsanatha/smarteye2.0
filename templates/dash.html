@@ -1,0 +1,482 @@
+<html>
+<head>
+
+<style>
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@font-face {
+font-family: "Montserrat";
+src: url("http://127.0.0.1/SmartEye-Front-End/assets/fonts/Montserrat-Medium.ttf");
+		}
+		
+body {
+	background: #f5fafe;
+}
+
+#menu {
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+}
+
+#main {
+	margin-left: 150px;
+	display: flex;
+  flex-direction: row;
+}
+
+#side1 {
+	padding: 30px;
+	width: 300px;
+	border-right: 3px solid #92c5ff;
+}
+#side2 {
+	padding: 30px;
+	flex-grow: 1;
+}
+#buildings .gedung {
+	background: #fff;
+	margin: 10px 0;
+	font-weight: bold;
+	padding: 10px;
+}
+
+
+
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+#menu {
+	
+	max-width: 150px;
+}
+
+#menu h1 {
+	padding: 45px 40px;
+	text-align: center;
+	font-weight: 800;
+font-size: 22px;
+line-height: 27px;
+color: #000;
+margin-bottom: 60px;
+}
+
+#menu .butt {
+	text-decoration: none!important;
+	text-align: center;
+	margin-bottom: 60px;
+	display: block;
+}
+
+#menu .butt span {
+	display: block;
+	margin: 10px auto;
+	text-align: center;
+	color: #06203D;;
+
+}
+
+#menu .butt div{
+	width: 43px;
+	height: 43px;
+	display: block;
+	margin: 0 auto;
+}
+
+#menu #dashboard div {
+	background: url("http://127.0.0.1/SmartEye-Front-End/assets/vector.png");
+}
+#menu #profile div, #menu #login div {
+	background: url("http://127.0.0.1/SmartEye-Front-End/assets/profile.png");
+}
+#menu #logout {
+	position: absolute;
+	bottom: 46px;
+	left: 0;
+	right: 0;
+	margin-bottom: 0;
+}
+
+#menu #logout div{
+	width: 36px;
+	height: 36px;
+	display: block;
+	margin: 0 auto;
+}
+#menu #logout div {
+	background: url("http://127.0.0.1/SmartEye-Front-End/assets/logout.png");
+}
+
+/* .caml {
+	display: none;
+} */
+
+.ha1 {
+	font-weight: 500;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+}
+
+.ha2 {
+	font-style: normal;
+font-weight: 500;
+font-size: 30px;
+line-height: 37px;
+}
+
+.dimana {
+	font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+margin-top: 27px;
+color: #275488;
+margin-bottom: 13px;
+}
+
+.timestamp {
+	font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #202F41;
+}
+
+.laporkan {
+	background: #BFBFBF;
+border-radius: 10px;
+color: #fff;
+padding: 10px;
+text-align: center;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+margin: 20px 0;
+}
+
+.vidgrid {
+	display: flex;
+}
+
+.vidgrid .col {
+	flex: 1;
+}
+
+.vidgrid .col h3 {
+	font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #06203D;
+}
+
+.vidgrid .col h4 {
+	font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #045577;
+}
+
+.vid-mask {
+	border-radius: 10px; 
+	overflow: hidden; 
+	position: relative;
+}
+
+.vid-mask video {
+	width: 100%;
+}
+
+#pelapor h2 {
+	font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+margin-top: 20px;
+color: #000000;
+}
+
+#pelapor input {
+	background: #FFFFFF;
+border: 1px solid rgba(32, 32, 32, 0.84);
+box-sizing: border-box;
+border-radius: 10px;
+width: 100%;
+padding: 10px;
+font-size: 24px;
+margin-top: 15px;
+margin-bottom: 	25px;
+}
+
+#pelapor #lapor {
+	background: #F52424;
+border-radius: 10px;
+}
+
+
+.flexlapor {
+	display: flex;
+}
+.flexlapor a {
+	display: block;
+	flex: 1;
+	text-decoration: none;
+	color: #fff;
+	text-align: center;
+	font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+padding: 10px;
+}
+#cancel {
+	color: #000;
+}
+#framer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	background: #fff;
+	right: 0;
+	z-index: 100;
+	font-size: 50px;
+}
+</style>
+<script src="http://localhost/dash.min.js"></script>
+<style>
+    #side1 h2 {
+        font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+    }
+    #buildings .gedung {
+        padding: 14px 10px;
+    }
+    video {
+        max-width: 100%;
+    }
+    #caml1 {
+        display: none;
+    }
+    #caml2 {
+        display: block;
+    }
+</style>
+</head>
+<body>
+
+<div id='menu'>
+<h1>Smart<br/>Eye</h1>
+
+
+<a href='#' id="dashboard" class='butt'>
+<div></div>
+<span>Dashboard</span>
+</a>
+
+<a href='#' id="profile" class='butt'>
+<div></div>
+<span>Profile</span>
+</a>
+
+<a href="http://127.0.0.1/SmartEye-Front-End/Site" id="logout" class='butt'>
+<div></div>
+<span>Log Out</span>
+</a>
+</div>
+
+
+<div id='main'>
+<div id='side1'>
+        <h2>CCTV</h2>
+        <div id='buildings'>
+            <div class='gedung' id='A'>Gedung A</div>
+            <div id='caml1' class='caml'>
+                <a href="http://127.0.0.1/SmartEye-Front-End/Site/cam1">cam1</a>
+            </div>
+            <div class='gedung' id='B'>Gedung B</div>
+            <div id='caml2' class='caml'>
+                    <a href="http://127.0.0.1/SmartEye-Front-End/Site/cam2">cam2</a>
+                </div>
+            <div class='gedung'>Gedung C</div>
+            <div class='gedung'>Gedung D</div>
+        </div>
+    </div>
+    <div id='side2'>
+        <!-- <h1>Current time:</h1>
+        <div id='cur'></div>
+        <button onclick="getCurTime()">Get time</button>
+        <video id='vid' autoplay="" preload="none" controls="true">
+            <source src="http://10.20.32.40:3000/v1/smarteye/video/playback" type="application/dash+xml"> -->
+            <!-- <source src="https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd" type="application/dash+xml">
+            <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+        </video> -->
+        <div class='ha2'>
+            Pick The Suspect
+        </div>
+        <div class='dimana'>
+        Gedung A - Cam2
+        </div>
+        <div class='timestamp'>
+        18:00:01 - 21 September 2019
+        </div>
+        <div class='vid'>
+            <div class='vid-mask'>
+                <div id='framer'>PAUSED, AMBIL FRAME TARO DI SINI</div>
+        <video id='vid' autoplay="" preload="none" controls="true">
+            <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+        </video>
+</div>
+        </div>
+        <div class='laporkan' id='laporkan'>LAPORKAN</div>
+        <div id='pelapor'>
+            <h2>Apa yang terjadi?</h2>
+            <input type='text' name='laporan' placeholder='Example: Pencurian Sepatu'>
+            <br>
+            <div class='flexlapor'>
+            <a href='#' id='lapor'>LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
+</div>
+        </div>
+
+        <div class='ha2'>
+            Suspect Path
+        </div>
+        <div class='vidgrid'>
+            <div class="col">
+            <div class='vid-mask'>
+                <video id='vid' autoplay="" preload="none" controls="true">
+            <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+        </video>
+</div>
+        <h3>Footage 1</h3>
+        <h4>Gedung A cam 1</h4>
+    </div>
+            <div class="col">
+            <div class='vid-mask'>
+            <video id='vid' autoplay="" preload="none" controls="true">
+            <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+        </video>
+</div>
+        <h3>Footage 2</h3>
+        <h4>Gedung A cam 2</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script>
+        var vid = document.getElementById("vid");
+        var out = document.getElementById("cur");
+        
+        function getCurTime() { 
+            out.innerHTML = vid.currentTime;
+          // alert(vid.currentTime);
+        } 
+            </script> -->
+<script>
+    var A = document.getElementById('A');
+    var B = document.getElementById('B');
+
+    var caml1 = document.getElementById('caml1');
+    var caml2 = document.getElementById('caml2');
+
+    // caml1.style.display = "none";
+    // caml2.style.display = "none";
+
+    A.onclick = function() {
+        
+        if (caml1.style.display == "block") {
+            caml1.style.display = "none";
+        } else {
+            caml1.style.display = "block";
+        }
+    }
+    B.onclick = function() {
+        if (caml2.style.display == "block") {
+            caml2.style.display = "none";
+        } else {
+            caml2.style.display = "block";
+        }
+    }
+
+    var laporkan = document.getElementById('laporkan');
+    var pelapor = document.getElementById('pelapor');
+    var cancel = document.getElementById('cancel');
+    var framer = document.getElementById('framer');
+
+    pelapor.style.display = "none";
+    framer.style.display = "none";
+
+    laporkan.onclick = function() {
+        laporkan.style.display = "none";
+            pelapor.style.display = "block";
+            framer.style.display = "block";
+    }
+
+    cancel.onclick = function() {
+        laporkan.style.display = "block";
+            pelapor.style.display = "none";
+            framer.style.display = "none";
+        return false;
+    }
+
+
+</script></body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% block style %} {% endblock %}
+  <title>Smart Eye</title>
+</head>
+
+<body>
+    {% block misc %}{% endblock %}
+  <div class="sidebar bg-white">
+    <h3><strong> SMART <br> EYE </strong></h3>
+    <div class="sidebar-item">
+        {% block sidebar%} {% endblock %}
+      <!-- <a href="/">
+        <button class="container-fluid">
+          <img src="static/img/profile.png" alt="login">
+        </button>
+        <img class="selected" src="static/img/selected.jpg" alt="">
+      </a> -->
+    </div>
+  </div>
+  {% block content %} {% endblock %}
+  <!-- <div class="container containSignIn">
+    <h1 class="card-title"> <strong> Sign In </strong> </h1>
+    <form class="form-signin" method="POST" action="/dashboard">
+      <div class="form-group">
+        <input class="form-control" id="Email" aria-describedby="emailHelp" name='username' placeholder="Username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="Password" name="password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-signin"><h4><strong>Login</strong></h4></button>
+      
+    </form>
+  </div> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  {% block script %}
+  {% endblock %}
+  
+</body>
+
+</html>
