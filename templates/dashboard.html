@@ -44,7 +44,7 @@
   <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
   <script>
     var vid = document.getElementById("video")
-    var frameRate = 10
+    var frameRate = 30
     var theInterval;
 
     vid.onplay = function () {
@@ -66,7 +66,7 @@
       //TODO : Bikin Laporan
       //TODO : Pilih Orang
       //TODO : Rapiin Front-end
-      $.post("/lapor", {laporan, image : fr, place : "{{ camera }}",  })
+      // $.post("/lapor", {laporan, image : fr, place : "{{ camera }}",  })
       $.post("/findSuspect",{ camera : "{{ camera }}",frameId : fr },
       function(data, status){
         if (status == "success"){

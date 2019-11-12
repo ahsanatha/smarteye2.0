@@ -41,23 +41,23 @@ def home():
 def getFrame():
     cam = request.form.get('camera')
     frameId = request.form.get('frameId')
-    cam = cam.split()[1]
-    with open('static\\Json '+cam+'\\0.json') as json_file:
+    cam = cam.split('_')[1]
+    with open('static\\Json Result '+cam+'\\result.json') as json_file:
         data = json.load(json_file)
     selectedData = data['data'][int(frameId)]['object']
+    # print(selectedData)
     suspect_ft = selectedData[0]['feature']
-    target_dir = 'static/res/'
+    target_dir = 'static/Res '+cam
+    print('target dir', target_dir)
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
+    # print(suspect_ft)
     if len(suspect_ft) > 0 :
         frame_num, suspect_idx = find_idx_suspect(cam, suspect_ft, target_dir + str(cam))
         if (frame_num is not -1):
             find_suspect(cam, frame_num, suspect_ft, target_dir + str(cam), 'forward')
             find_suspect(cam, frame_num, suspect_ft, target_dir + str(cam), 'backward')
-        frames = set([int(i[0]) for i in [i[3].split('.') for i in [i.split('\\') for i in glob.glob('static\\res\\'+str(cam)+'\\*.jpg')]]])
-        first_frame = min(frames)
-        print(first_frame)
-        path = generateSuspectVideo('static\\res\\'+str(cam), first_frame)
+        path = generateSuspectVideo(target_dir)
     else :
         path = 'None'
     return path
@@ -66,4 +66,4 @@ def getFrame():
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(debug = True)
+    app.run(port =3000,debug = True)

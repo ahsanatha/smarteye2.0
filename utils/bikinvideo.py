@@ -22,13 +22,14 @@ def generateOneVideo(filepath):
     return filename
 
 def generateSuspectVideo(filepath):
-    cam = filepath.split(' ')[1]
+    cam = filepath.split('/')[1]
+    cam = cam.split()[1]
     filename = 'suspect'+cam
-    frames = set([int(i[0]) for i in [i[1].split('.') for i in [i.split('\\') for i in glob.glob('Res '+str(cam)+'\\*.jpg')]]])
+    frames = set([int(i[0]) for i in [i[2].split('.') for i in [i.split('\\') for i in glob.glob('static\\Res '+cam+'\\*.jpg')]]])
     start = min(frames)
     id = filename
-    os.system('ffmpeg -framerate 30  -start_number '+str(start)+' -i "'+filepath+'"\\'+'%d.jpg  vid/"'+filename+'".mp4')
-    os.system('ffmpeg -i vid/"'+filename+'".mp4 -codec copy -f dash -min_seg_duration 30 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
+    os.system('ffmpeg -framerate 30  -start_number '+str(start)+' -i "'+filepath+'"/'+'%d.jpg  static/vid/"'+filename+'".mp4')
+    os.system('ffmpeg -i static/vid/"'+filename+'".mp4 -codec copy -f dash -min_seg_duration 30 -init_seg_name '+filename+'-init.m4s -media_seg_name '+filename+'-$Time$.m4s vid/"'+filename+'".mpd')
     return filename+'.mp4'
 
 if __name__ == "__main__":
