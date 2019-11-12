@@ -1,0 +1,95 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: rgba(165, 207, 255, 0.11);
+    display: grid;
+    height: 100%;
+    grid-template-columns: 160px auto;
+}
+
+
+.containSignIn {
+    background-color: white;
+    height: 60%;
+    width: 50%;
+    margin: auto;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.form-signin {
+    width: 300px;
+    margin: 80px auto;
+}
+
+.form-control {
+    border: none;
+    border-radius: 10px;
+    height: 56px;
+    margin: 30px auto;
+    background-color: #CEE7FF;
+}
+
+.form-control:focus {
+    background-color: #CEE7FF;
+    border-color: #89C4FF;
+}
+
+.btn-signin {
+    margin: 40px auto;
+    background: #89C4FF;
+    border-radius: 10px;
+    width: 300px;
+    border: none;
+    padding: 8px;
+    color: white;
+    height: 60px;
+}
+
+.sidebar {
+    text-align: center;
+    grid-auto-rows: 160px;
+    height: 100%;
+}
+
+.sidebar>h3 {
+    margin: 45px auto;
+    display: grid;
+    z-index: -1;
+}
+
+.sidebar-item {
+    margin: 30px auto
+}
+
+.sidebar-item>a>button {
+    background-color: transparent;
+    border: none;
+    z-index: 0;
+    background-size: 100px;
+
+}
+
+.sidebar-item>a {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected {
+    z-index: 999999;
+}
+
+.sidebar-item>a>button>img {
+    width: 44px;
+}
+
+.sidebar-item>a>button>img:hover {
+    background: url('static/img/profile-blue.png') no-repea t;
+    /* width: 60px; */
+}
