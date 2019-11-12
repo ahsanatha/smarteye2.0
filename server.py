@@ -34,11 +34,12 @@ def dashboard():
     
 @app.route('/dash')
 def dash():
-    return render_template('dash.html')
+    return render_template('dashboard.html')
 
-@app.route('/base')
-def base():
-    return render_template('base.html')
+@app.route('/cam/<id>')
+def cam(id):
+    camera = 'Rec_'+str(id)
+    return render_template('cam.html',camera = camera)
 
 @app.route('/')
 def home():
