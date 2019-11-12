@@ -45,4 +45,38 @@
         return false;
     }
 
+    var vid = document.getElementById("vid")
+  var frameRate = 30
+  var theInterval;
+
+  vid.onplay = function () {
+    theInterval = setInterval(function () { getCurrentVideoFrame() }, (1000 / frameRate))
+  }
+  vid.onpause = function () {
+    clearInterval(theInterval)
+  }
+
+  function getCurrentVideoFrame() {
+    curTime = vid.currentTime
+    theCurrentFrame = Math.floor(curTime * frameRate)
+    console.log(theCurrentFrame)
+    return theCurrentFrame
+  }
+  function takeFrame() {
+    fr = getCurrentVideoFrame()
+    laporan = document.getElementById('laporan').value
+    //TODO : Bikin Laporan
+    //TODO : Pilih Orang
+    //TODO : Rapiin Front-end
+    // $.post("/lapor", {laporan, image : fr, place : "{{ camera }}",  })
+    $.post("/findSuspect", { camera: "{{ camera }}", frameId: fr },
+      function (data, status) {
+        if (status == "success") {
+          vid.src = 'static/vid/' + data
+        } else {
+          console.log(status)
+        }
+      })
+
+  }
 
