@@ -168,7 +168,7 @@ text-align: center;
 .ha2 {
 	font-style: normal;
 font-weight: 500;
-font-size: 28px;
+font-size: 20px;
 line-height: 37px;
 }
 
@@ -193,7 +193,7 @@ color: #202F41;
 
 .laporkan {
 	background: #BFBFBF;
-border-radius: 10px;
+/* border-radius: 10px; */
 color: #fff;
 padding: 10px;
 text-align: center;
@@ -233,8 +233,8 @@ color: #045577;
 }
 
 .vid-mask {
-	border-radius: 10px; 
-	margin: 0 10px;
+	/* border-radius: 10px;  */
+	/* margin: 0 10px; */
 	overflow: hidden; 
 	position: relative;
 }

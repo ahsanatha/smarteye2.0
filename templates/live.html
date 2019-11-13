@@ -24,9 +24,9 @@
 <div class='ha2'>
     Suspect Tracking
 </div>
-<div class='dimana'>
+<!-- <div class='dimana'>
     Gedung A - Cam 1 [LIVE]
-</div>
+</div> -->
 <!-- <div class='timestamp'>
     18:00:01 - 21 September 2019
 </div> -->
@@ -58,8 +58,8 @@
 <div class='ha2' id>
     Suspect Path
 </div>
-<div class='vidgrid'>
-    <div class="col" style="max-width:300px; margin:0 auto">
+<div class='vidgrid' style="margin:0 -10px">
+    <div class="col" style="max-width:300px; margin:0 10px">
         <div class='vid-mask'>
             <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_0.mpd') }}">
             </video>
@@ -67,7 +67,7 @@
         <h3>Footage 1</h3>
         <h4>Gedung A cam 1</h4>
     </div>
-    <div class="col" style="max-width:300px; margin:0 auto">
+    <div class="col" style="max-width:300px; margin:0 10px">
         <div class='vid-mask'>
             <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
             </video>
@@ -75,7 +75,7 @@
         <h3>Footage 1</h3>
         <h4>Gedung A cam 1</h4>
     </div>
-    <div class="col" style="max-width:300px; margin:0 auto">
+    <div class="col" style="max-width:300px; margin:0 10px">
         <div class='vid-mask'>
             <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
             </video>
