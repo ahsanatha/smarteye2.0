@@ -82,7 +82,7 @@ function takeFrame() {
     cam = window.location.href.split('/')
     cam = cam[cam.length-1]
     console.log(cam)
-    framer.innerHTML = '<img id="suspect" src="../static/Rec '+cam+'/' + fr + '.jpg" alt="">'
+    framer.innerHTML += '<img id="suspect" width="100%" src="../static/Rec '+cam+'/' + fr + '.jpg" alt="">'
 }
 lapor = document.getElementById('lapor')
 lapor.onclick = function () {
@@ -99,6 +99,7 @@ lapor.onclick = function () {
                 console.error(status)
             }
         })
+
 }
 // define varible for arr bbox per object
 var btop = [], bbottom = [], bleft = [], bright = []
