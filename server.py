@@ -31,14 +31,15 @@ def dashboard():
         return render_template('dashboard.html', cameras = cameras, camera=camera)
     else :
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
-<<<<<<< HEAD
 
+# TODO: 122 masih static, json masih testing dan static
 @app.route('/fetch/bbox', methods=['GET'])
 def bbox():
     with open('0.json') as json_file:
-        print(json_file)
-        return json_file
-=======
+        data = json.load(json_file)
+        # give dinamic
+        # 122 adalah nomor frame
+        return data['data'][122]
     
 @app.route('/dash')
 def dash():
@@ -48,7 +49,6 @@ def dash():
 def cam(id):
     camera = 'Rec_'+str(id)
     return render_template('cam.html',camera = camera)
->>>>>>> 824af01ca34472773808cc5609e2711e9365d8ac
 
 @app.route('/')
 def home():
