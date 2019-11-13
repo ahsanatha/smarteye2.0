@@ -99,7 +99,6 @@ lapor.onclick = function () {
                 console.error(status)
             }
         })
-
 }
 // define varible for arr bbox per object
 var btop = [], bbottom = [], bleft = [], bright = []
