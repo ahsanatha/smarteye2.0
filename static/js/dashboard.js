@@ -1,9 +1,12 @@
 
 var A = document.getElementById('A');
 var B = document.getElementById('B');
+var C = document.getElementById('C');
 
 var caml1 = document.getElementById('caml1');
 var caml2 = document.getElementById('caml2');
+var caml3 = document.getElementById('caml3');
+
 
 // caml1.style.display = "none";
 // caml2.style.display = "none";
@@ -23,6 +26,13 @@ B.onclick = function () {
         caml2.style.display = "block";
     }
 }
+C.onclick = function (){
+    if (caml3.style.display == "block") {
+        caml3.style.display = "none";
+    } else {
+        caml3.style.display = "block";
+    }
+}
 
 var laporkan = document.getElementById('laporkan');
 var pelapor = document.getElementById('pelapor');
@@ -37,7 +47,6 @@ laporkan.onclick = function () {
     pelapor.style.display = "block";
     framer.style.display = "block";
     takeFrame()
-    console.log('<img src="static/Rec 0/'+getCurrentVideoFrame()+'.jpg" alt="">')
 }
 
 cancel.onclick = function () {
@@ -50,6 +59,8 @@ cancel.onclick = function () {
 var vid = document.getElementById("vid")
 var frameRate = 30
 var theInterval;
+var selectedFrame;
+var cam;
 
 vid.onplay = function () {
     theInterval = setInterval(function () { getCurrentVideoFrame() }, (1000 / frameRate))
@@ -65,20 +76,41 @@ function getCurrentVideoFrame() {
 }
 function takeFrame() {
     fr = getCurrentVideoFrame()
-    // laporan = document.getElementById('laporan').value
-    framer.innerHTML = '<img style="width:auto" src="../static/Rec 0/'+fr+'.jpg" alt="">'
-    //TODO : Bikin Laporan
-    //TODO : Pilih Orang
-    //TODO : Rapiin Front-end (done)
-    // $.post("/lapor", {laporan, image : fr, place : "{{ camera }}",  })
-    // $.post("/findSuspect", { camera: "{{ camera }}", frameId: fr },
-    //     function (data, status) {
-    //         if (status == "success") {
-    //             vid.src = 'static/vid/' + data
-    //         } else {
-    //             console.log(status)
-    //         }
-    //     })
-
+    selectedFrame = fr
+    cam = window.location.href.split('/')
+    cam = cam[cam.length-1]
+    console.log(cam)
+    framer.innerHTML = '<img id="suspect" width="100%" src="../static/Rec '+cam+'/' + fr + '.jpg" alt="">'
 }
+lapor = document.getElementById('lapor')
+lapor.onclick = function () {
+    title = document.getElementById('title').value
+    reporter = 'Guest 1' //nanti ganti pake session
+    image = document.getElementById('suspect').src;
+    place = "lab AI" //nanti diganti pake nama kamera
+    //  console.log(title)
+    $.post('/lapor', { title, reporter, image, place },
+        function (data, status) {
+            if (status == "success") {
+                console.log(data)
+            } else {
+                console.error(status)
+            }
+        })
+}
+// function printMousePos(event) {
+//     // console.log("clientX: " + event.clientX + " - clientY: " + event.clientY, selectedFrame);
+
+//     $.post('/cekClick', { x: event.clientX, y: event.clientY, fr: selectedFrame, cam},
+//         function (data, status) {
+//             if (status == 'success'){
+//                 // console.log(data['bbox'])
+//                 // console.log(data['obj_fitur'])
+//             }
+//     })
+
+// }
+
+// framer.addEventListener("click", printMousePos);
+
 
