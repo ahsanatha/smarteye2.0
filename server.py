@@ -74,13 +74,13 @@ def dash():
 def cam(id):
     camera = 'Rec '+str(id)
     filename = camera.split()[0]+'_'+camera.split()[1]
-    return render_template('cam.html',camera = camera, filename = filename)
+    return render_template('cam.html',camera = camera, filename = filename, id=id)
 
 @app.route('/live/<id>')
 def live(id):
     camera = 'Rec '+str(id)
     filename = camera.split()[0]+'_'+camera.split()[1]
-    return render_template('cam.html',camera = camera, filename = filename)
+    return render_template('live.html',camera = camera, filename = filename, id=id)
 
 @app.route('/')
 def home():

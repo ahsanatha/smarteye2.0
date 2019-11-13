@@ -160,7 +160,7 @@ margin-bottom: 60px;
 
 .ha1 {
 	font-weight: 500;
-font-size: 36px;
+font-size: 28px;
 line-height: 44px;
 text-align: center;
 }
@@ -168,16 +168,16 @@ text-align: center;
 .ha2 {
 	font-style: normal;
 font-weight: 500;
-font-size: 30px;
+font-size: 28px;
 line-height: 37px;
 }
 
 .dimana {
 	font-style: normal;
 font-weight: 500;
-font-size: 24px;
+/* font-size: 24px; */
 line-height: 29px;
-margin-top: 27px;
+/* margin-top: 27px; */
 color: #275488;
 margin-bottom: 13px;
 }
@@ -198,7 +198,7 @@ color: #fff;
 padding: 10px;
 text-align: center;
 font-weight: 600;
-font-size: 24px;
+font-size: 18px;
 line-height: 29px;
 margin: 20px 0;
 }
@@ -234,6 +234,7 @@ color: #045577;
 
 .vid-mask {
 	border-radius: 10px; 
+	margin: 0 10px;
 	overflow: hidden; 
 	position: relative;
 }

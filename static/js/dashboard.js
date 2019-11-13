@@ -119,7 +119,7 @@ function takeFrame() {
             bboxes.push(node)
         }
         // var bbox = document.getElementById("bbox")
-        console.log(bboxes)
+        // console.log(bboxes)
         im.onload = function () {
             iHeight = im.height
             iWidth = im.width
@@ -153,7 +153,7 @@ function takeFrame() {
         }
 
         im.src = '../static/'+imageData;
-        console.log(imageData)
+        // console.log(imageData)
         hotspot_image.src = im.src
     });
 }
