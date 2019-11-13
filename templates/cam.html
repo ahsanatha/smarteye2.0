@@ -26,15 +26,15 @@
         Pick The Suspect
     </div>
     <div class='dimana'>
-        Gedung A - Cam1
+        Building A - Cam {{ id }}
     </div>
 </div>
-<div style="max-width: 6000px; margin:0 auto;">
+<div style="max-width: 700px; margin:0 auto;">
     <div class='vid'>
         <div class='vid-mask'>
             <div id='framer'>
                 <div id='box'>
-                    <img id="hotspot_image" src="" alt="Hotspot image" />
+                    <img id="hotspot_image" src=""/>
                 </div>
             </div>
             <video data-dashjs-player controls id='vid' src="../static/vid/{{ filename }}.mpd">
@@ -48,32 +48,11 @@
         <input type='text' name='laporan' id='title' placeholder='Example: Pencurian Sepatu'>
         <br>
         <div class='flexlapor'>
-            <a id='lapor' href="/live/{{ id }}">LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
+            <a id='lapor' class='ha2' href="/live/{{ id }}">REPORT</a> <a href='#' class='ha2' id='cancel'>CANCEL</a>
         </div>
     </div>
 </div>
 
-<!-- <div class='ha2' id >
-    Suspect Path
-</div>
-<div class='vidgrid'>
-    <div class="col" style="max-width:300px; margin:0 auto">
-        <div class='vid-mask' >
-            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
-            </video>
-        </div>
-        <h3>Footage 1</h3>
-        <h4>Gedung A cam 1</h4>
-    </div>
-    <div class="col" style="max-width:300px; margin:0 auto">
-        <div class='vid-mask'>
-                <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
-                </video>
-        </div>
-        <h3>Footage 2</h3>
-        <h4>Gedung A cam 2</h4>
-    </div>
-</div> -->
 </div>
 </div>
 {% endblock %}

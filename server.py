@@ -37,14 +37,10 @@ def dashboard():
     else :
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
 
-# TODO: 122 masih static, json masih testing dan static
 @app.route('/fetch/bbox', methods=['POST'])
 def bbox():
-    # print(request.form.get('cam'))
-    # with open('static/Json Result '+str(request.args.get('cam'))+'/result.json') as json_file:
     with open('static/Json Result '+str(request.form.get('cam'))+'/result.json') as json_file:
         data = json.load(json_file)
-        print(data['data'][int(request.form.get('fr'))])
         return jsonify(data['data'][int(request.form.get('fr'))])
 
 @app.route('/lapor', methods=['POST'])
@@ -58,7 +54,7 @@ def lapor():
     report['elapsed'] = str(time.time())
     report['date'] = str(datetime.now().date())
     report['time'] = str(datetime.now().time())[:8]
-    print(report)
+    # print(report)
     with open(report_dir) as data_file:    
         old_data = json.load(data_file)
     old_data['report'].append(report)
@@ -74,13 +70,13 @@ def dash():
 def cam(id):
     camera = 'Rec '+str(id)
     filename = camera.split()[0]+'_'+camera.split()[1]
-    return render_template('cam.html',camera = camera, filename = filename, id=id)
+    return render_template('cam.html',camera = camera, filename = filename, id=int(id)+1)
 
 @app.route('/live/<id>')
 def live(id):
     camera = 'Rec '+str(id)
     filename = camera.split()[0]+'_'+camera.split()[1]
-    return render_template('live.html',camera = camera, filename = filename, id=id)
+    return render_template('live.html',camera = camera, filename = filename, id=int(id)+1)
 
 @app.route('/')
 def home():
