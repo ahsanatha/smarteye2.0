@@ -26,7 +26,7 @@ B.onclick = function () {
         caml2.style.display = "block";
     }
 }
-C.onclick = function (){
+C.onclick = function () {
     if (caml3.style.display == "block") {
         caml3.style.display = "none";
     } else {
@@ -47,7 +47,6 @@ laporkan.onclick = function () {
     pelapor.style.display = "block";
     framer.style.display = "block";
     takeFrame()
-    testBbox()
 }
 
 cancel.onclick = function () {
@@ -80,9 +79,81 @@ function takeFrame() {
     fr = getCurrentVideoFrame()
     selectedFrame = fr
     cam = window.location.href.split('/')
-    cam = cam[cam.length-1]
-    console.log(cam)
-    framer.innerHTML += '<img id="suspect" width="100%" src="../static/Rec '+cam+'/' + fr + '.jpg" alt="">'
+    cam = cam[cam.length - 1]
+    $.post('../fetch/bbox',{ cam:cam, fr: selectedFrame },
+    function (response, status) {
+        console.log('res',response)
+        recjson = response
+        var hotspot_image = document.getElementById('hotspot_image')
+        var box = document.getElementById('box')
+        var iHeight, iWidth
+
+        recobj = recjson
+        var imageData = recobj.image
+        // console.log(recobj)
+        var im = new Image();
+
+        var numb, node
+        numb = recobj.object.length
+
+
+        for (var i = 0; i < numb; i++) {
+            console.log("iii", i)
+            node = document.createElement("div");
+            node.id = "bbox" + i
+            node.className = "bbox"
+            var tes = recobj.object[i].feature
+            var kkk = i
+            // node.onclick = function () {
+            // 	console.log("person ke",kkk)
+            // 	console.log(tes)
+
+            // };
+            // node.addEventListener( 'click', function(){
+            //   console.log("person ke",kkk)
+            // 	console.log(tes)
+            // } );
+            node.setAttribute("onclick", "clicker(" + i + ");");
+            box.appendChild(node)
+            bboxes.push(node)
+        }
+        // var bbox = document.getElementById("bbox")
+        console.log(bboxes)
+        im.onload = function () {
+            iHeight = im.height
+            iWidth = im.width
+            var ratio = iHeight / iWidth
+            var parentBoxW = box.offsetWidth
+            console.log("width", parentBoxW)
+            console.log("height:", parentBoxW * ratio)
+            var parentBoxH = parentBoxW * ratio
+
+            for (j = 0; j < numb; j++) {
+                btop = recobj.object[j].bbox[0]
+                bleft = recobj.object[j].bbox[1]
+                bbottom = recobj.object[j].bbox[2]
+                bright = recobj.object[j].bbox[3]
+
+                var bbox = document.getElementById("bbox" + j)
+
+                console.log("jj", bboxes[j])
+                // bbox.style.top = (btop/iHeight)*parentBoxH+"px"
+                // bbox.style.left = (bleft/iWidth)*parentBoxW+"px"
+                // bbox.style.bottom = (parentBoxH - ((bbottom/iHeight)*parentBoxH)) +"px"
+                // bbox.style.right = (parentBoxW - ((bright/iWidth)*parentBoxW)) +"px"
+
+                bbox.style.top = (btop / iHeight) * 100 + "%"
+                bbox.style.left = (bleft / iWidth) * 100 + "%"
+                bbox.style.bottom = (parentBoxH - ((bbottom / iHeight) * parentBoxH)) / parentBoxH * 100 + "%"
+                bbox.style.right = (parentBoxW - ((bright / iWidth) * parentBoxW)) / parentBoxW * 100 + "%"
+                bbox.style.border = "2px solid transparent"
+                bbox.style.position = "absolute"
+            }
+        }
+
+        im.src = imageData;
+        hotspot_image.src = im.src
+    });
 }
 lapor = document.getElementById('lapor')
 lapor.onclick = function () {
@@ -90,7 +161,6 @@ lapor.onclick = function () {
     reporter = 'Guest 1' //nanti ganti pake session
     image = document.getElementById('suspect').src;
     place = "lab AI" //nanti diganti pake nama kamera
-    //  console.log(title)
     $.post('/lapor', { title, reporter, image, place },
         function (data, status) {
             if (status == "success") {
@@ -100,91 +170,25 @@ lapor.onclick = function () {
             }
         })
 }
-// define varible for arr bbox per object
-var btop = [], bbottom = [], bleft = [], bright = []
 
-function testBbox() {
-    $.get("/fetch/bbox",{fr:selectedFrame}, function (data, status) {
-        console.log(data)
-        // data from json
-        recobj = data
-        var hotspot_image = document.getElementById('suspect')
-        box = document.getElementById('framer')
 
-        var iHeight, iWidth
-        var bboxes = [], numb, node
 
-        numb = recobj.object.length
 
-        for (i = 0; i < numb; i++) {
-            node = document.createElement("div");
-            node.id = "bbox" + i
-            box.appendChild(node)
-            bboxes.push(node)
+function clicker(id) {
+    var tebox = document.getElementById('bbox' + id)
+    // console.log()
+    for (i = 0; i < bboxes.length; i++) {
+        if (i != id) {
+            bboxes[i].style.border = "2px solid transparent"
+        } else {
+            bboxes[i].style.border = "2px solid #f00"
         }
 
-        console.log(bboxes)
-        
-        iHeight = hotspot_image.height;
-        iWidth = hotspot_image.width;
-        // console.log(iHeight, bbottom[0])
-        // console.log(width, bright[0])
-        for (j = 0; j < numb; j++) {
-            btop[j] = recobj.object[j].bbox[0]
-            bleft[j] = recobj.object[j].bbox[1]
-            bbottom[j] = recobj.object[j].bbox[2]
-            bright[j] = recobj.object[j].bbox[3]
-
-            var bbox = document.getElementById("bbox" + j)
-
-            bbox.style.top = btop[j] + "px"
-            bbox.style.left = bleft[j] + "px"
-            bbox.style.bottom = (iHeight - bbottom[j]) + "px"
-            bbox.style.right = (iWidth - bright[j]) + "px"
-            bbox.style.border = "2px solid #FF0000"
-            bbox.style.position = "absolute"
-        }
-
-    })
-}
-
-// framer.addEventListener('click',clickHotspotImage(event))
-
-// jika image di click
-function clickHotspotImage(event) {
-    var xCoordinate = event.offsetX
-    var yCoordinate = event.offsetY
-    // console.log(xCoordinate, yCoordinate)
-    // console.log(yCoordinate, btop)
-    if (xCoordinate >= bleft[0] && xCoordinate <= bright[0]) {
-        if (yCoordinate >= btop[0] && yCoordinate <= bbottom[0]) {
-            console.log(xCoordinate, yCoordinate, "object 1")
-        }
-    } else if (xCoordinate >= bleft[1] && xCoordinate <= bright[1]) {
-        if (yCoordinate >= btop[1] && yCoordinate <= bbottom[1]) {
-            console.log(xCoordinate, yCoordinate, "object 2")
-        }
-    } else if (xCoordinate >= bleft[2] && xCoordinate <= bright[2]) {
-        if (yCoordinate >= btop[2] && yCoordinate <= bbottom[2]) {
-            console.log(xCoordinate, yCoordinate, "object 3")
-        }
-    } else if (xCoordinate >= bleft[3] && xCoordinate <= bright[3]) {
-        if (yCoordinate >= btop[3] && yCoordinate <= bbottom[3]) {
-            console.log(xCoordinate, yCoordinate, "object 4")
-        }
-    } else if (xCoordinate >= bleft[4] && xCoordinate <= bright[4]) {
-        if (yCoordinate >= btop[4] && yCoordinate <= bbottom[4]) {
-            console.log(xCoordinate, yCoordinate, "object 5")
-        }
-    } else if (xCoordinate >= bleft[5] && xCoordinate <= bright[5]) {
-        if (yCoordinate >= btop[5] && yCoordinate <= bbottom[5]) {
-            console.log(xCoordinate, yCoordinate, "object 6")
-        }
-    } else if (xCoordinate >= bleft[6] && xCoordinate <= bright[6]) {
-        if (yCoordinate >= btop[6] && yCoordinate <= bbottom[6]) {
-            console.log(xCoordinate, yCoordinate, "object 7")
-        }
     }
+    // tebox.style.border = "2px solid #f00"
+    // console.log(bboxes)
+    // console.log( document.getElementById('bbox'+id))
+    console.log("person ke", id)
+    console.log("features:", recobj.data.object[id].feature)
 }
-
 

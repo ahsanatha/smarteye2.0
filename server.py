@@ -38,11 +38,14 @@ def dashboard():
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
 
 # TODO: 122 masih static, json masih testing dan static
-@app.route('/fetch/bbox', methods=['GET'])
+@app.route('/fetch/bbox', methods=['POST'])
 def bbox():
-    with open('static/Json Result 0/result.json') as json_file:
+    # print(request.form.get('cam'))
+    # with open('static/Json Result '+str(request.args.get('cam'))+'/result.json') as json_file:
+    with open('static/Json Result '+str(request.form.get('cam'))+'/result.json') as json_file:
         data = json.load(json_file)
-        return jsonify(data['data'][int(request.args.get('fr'))])
+        print(data['data'][int(request.form.get('fr'))])
+        return jsonify(data['data'][int(request.form.get('fr'))])
 
 @app.route('/lapor', methods=['POST'])
 def lapor():
@@ -65,10 +68,16 @@ def lapor():
     
 @app.route('/dash')
 def dash():
-    return render_template('dashboard.html')
+    return render_template('index.html')
 
 @app.route('/cam/<id>')
 def cam(id):
+    camera = 'Rec '+str(id)
+    filename = camera.split()[0]+'_'+camera.split()[1]
+    return render_template('cam.html',camera = camera, filename = filename)
+
+@app.route('/live/<id>')
+def live(id):
     camera = 'Rec '+str(id)
     filename = camera.split()[0]+'_'+camera.split()[1]
     return render_template('cam.html',camera = camera, filename = filename)

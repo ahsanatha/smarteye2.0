@@ -4,45 +4,21 @@
     #box {
         position: relative;
         display: table;
+        width: 100%;
     }
 
     #box img {
         display: block;
+        width: 100%;
     }
 
-    #bbox0 {
+    .bbox {
         position: absolute;
-        pointer-events: none;
+        /*pointer-events: none;*/
     }
 
-    #bbox1 {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    #bbox2 {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    #bbox3 {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    #bbox4 {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    #bbox5 {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    #bbox6 {
-        position: absolute;
-        pointer-events: none;
+    .bbox:hover {
+        border-color: #f00 !important;
     }
 </style>
 <div class='ha2'>
@@ -57,7 +33,8 @@
 <div class='vid'>
     <div class='vid-mask'>
         <div id='framer'>
-            <div id='box' style="width: 100%; height: 100%;">
+            <div id='box'>
+                <img id="hotspot_image" src="" alt="Hotspot image" />
             </div>
         </div>
         <video data-dashjs-player controls id='vid' src="../static/vid/{{ filename }}.mpd">
@@ -74,7 +51,7 @@
     <input type='text' name='laporan' id='title' placeholder='Example: Pencurian Sepatu'>
     <br>
     <div class='flexlapor'>
-        <a id='lapor'>LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
+        <a id='lapor' href="/live/">LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
     </div>
 </div>
 
