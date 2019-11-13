@@ -46,21 +46,26 @@
 <div class='timestamp'>
     18:00:01 - 21 September 2019
 </div>
-<!-- TODO: Image masih static -->
-<div id='box' style="max-width:600px; margin:0 auto">
-    <img id="hotspot_image" name="hotspot_image" src="../static/122.jpg" alt="Hotspot image" onclick="clickHotspotImage(event);"/>
+<div class='vid'>
+    <div class='vid-mask' style=" margin:0 auto">
+        <div id='framer'>
+            <img id="suspect" width="100%" src="" alt="">
+        </div>
+        <video data-dashjs-player controls id='vid' src="../static/vid/{{ filename }}.mpd">
+        </video>
+    </div>
 </div>
 <div class='laporkan' id='laporkan'>LAPORKAN</div>
 <div id='pelapor'>
     <h2>Apa yang terjadi?</h2>
-    <input type='text' name='laporan' placeholder='Example: Pencurian Sepatu'>
+    <input type='text' name='laporan' id='title' placeholder='Example: Pencurian Sepatu'>
     <br>
     <div class='flexlapor'>
-        <a href='#' id='lapor'>LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
+        <a id='lapor'>LAPORKAN</a> <a href='#' id='cancel'>KEMBALI</a>
     </div>
 </div>
 
-<div class='ha2' id >
+<!-- <div class='ha2' id >
     Suspect Path
 </div>
 <div class='vidgrid'>
@@ -80,7 +85,7 @@
         <h3>Footage 2</h3>
         <h4>Gedung A cam 2</h4>
     </div>
-</div>
+</div> -->
 </div>
 </div>
 {% endblock %}

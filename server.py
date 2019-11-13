@@ -1,10 +1,15 @@
-from flask import Flask, escape, request, render_template
+from flask import Flask, escape, request, render_template,jsonify
 import glob
 import json
 from utils.bikinvideo import generateSuspectVideo, generateOneVideo
 from utils.find_suspect import find_suspect, find_idx_suspect
 import os
+from datetime import datetime
+import time
 import shutil
+import numpy as np
+import math
+
 
 app = Flask(__name__)
 
@@ -40,6 +45,25 @@ def bbox():
         # give dinamic
         # 122 adalah nomor frame
         return data['data'][122]
+
+@app.route('/lapor', methods=['POST'])
+def lapor():
+    report = {}
+    report_dir = 'static\\report.json'
+    report['title'] = request.form.get('title')
+    report['reporter'] = request.form.get('reporter')
+    report['place'] = request.form.get('place')
+    report['image'] = request.form.get('image')
+    report['elapsed'] = str(time.time())
+    report['date'] = str(datetime.now().date())
+    report['time'] = str(datetime.now().time())[:8]
+    print(report)
+    with open(report_dir) as data_file:    
+        old_data = json.load(data_file)
+    old_data['report'].append(report)
+    with open(report_dir, 'w') as fp:
+        json.dump(old_data, fp)
+    return "new data added to db"
     
 @app.route('/dash')
 def dash():
@@ -47,8 +71,9 @@ def dash():
 
 @app.route('/cam/<id>')
 def cam(id):
-    camera = 'Rec_'+str(id)
-    return render_template('cam.html',camera = camera)
+    camera = 'Rec '+str(id)
+    filename = camera.split()[0]+'_'+camera.split()[1]
+    return render_template('cam.html',camera = camera, filename = filename)
 
 @app.route('/')
 def home():
