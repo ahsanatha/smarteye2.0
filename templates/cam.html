@@ -60,13 +60,13 @@
     </div>
 </div>
 
-<div class='ha2'>
+<div class='ha2' id >
     Suspect Path
 </div>
 <div class='vidgrid'>
     <div class="col" style="max-width:300px; margin:0 auto">
         <div class='vid-mask' >
-            <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
+            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
             </video>
         </div>
         <h3>Footage 1</h3>
@@ -74,7 +74,7 @@
     </div>
     <div class="col" style="max-width:300px; margin:0 auto">
         <div class='vid-mask'>
-                <video data-dashjs-player controls id='vid' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
+                <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
                 </video>
         </div>
         <h3>Footage 2</h3>
@@ -123,7 +123,7 @@
                 bright[j] = recobj.object[j].bbox[3]
 
                 var bbox = document.getElementById("bbox"+j)
-                
+
                 bbox.style.top = btop[j]+"px"
                 bbox.style.left = bleft[j]+"px"
                 bbox.style.bottom = (iHeight - bbottom[j]) +"px"
