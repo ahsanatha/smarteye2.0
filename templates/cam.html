@@ -1,41 +1,49 @@
 {% extends 'dash.html' %}
 {% block camera %}
 <style>
-	#box {
-		position: relative;
-		display: table;
-	}
-	#box img {
-		display: block;
-	}
-	#bbox0 {
-		position: absolute;
-		pointer-events: none;
-	}
+    #box {
+        position: relative;
+        display: table;
+    }
+
+    #box img {
+        display: block;
+    }
+
+    #bbox0 {
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox1 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox2 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox3 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox4 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox5 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
+
     #bbox6 {
-		position: absolute;
-		pointer-events: none;
-	}
+        position: absolute;
+        pointer-events: none;
+    }
 </style>
 <div class='ha2'>
     Pick The Suspect
@@ -47,14 +55,20 @@
     18:00:01 - 21 September 2019
 </div>
 <div class='vid'>
-    <div class='vid-mask' style=" margin:0 auto">
+    <div class='vid-mask'>
         <div id='framer'>
-            <img id="suspect" width="100%" src="" alt="">
+            <img id="suspect"  src="" alt="">
+            <div id='box' style="width: 100%; height: 100%; margin: 0 auto;">
+            </div>
         </div>
         <video data-dashjs-player controls id='vid' src="../static/vid/{{ filename }}.mpd">
         </video>
     </div>
 </div>
+
+
+
+
 <div class='laporkan' id='laporkan'>LAPORKAN</div>
 <div id='pelapor'>
     <h2>Apa yang terjadi?</h2>
@@ -91,93 +105,8 @@
 {% endblock %}
 {% block script %}
 
-<script>
-    // define varible for arr bbox per object
-    var btop = [], bbottom = [], bleft = [], bright = []
 
-    function testBbox() {
-        $.get("/fetch/bbox", function(data, status){
-            // console.log(data)
-            // data from json
-            recobj = data
-            var hotspot_image = document.getElementById('hotspot_image')
-            var box = document.getElementById('box')
 
-            var iHeight, iWidth
-            var bboxes= [], numb, node
-
-            numb = recobj.object.length
-
-            for (i = 0; i < numb; i++ ){
-            node = document.createElement("div");
-            
-            node.id = "bbox"+i
-            //   console.log(node)
-            box.appendChild(node)
-            bboxes.push(node)
-            }
-
-            console.log(bboxes)  
-            iHeight = 480
-            iWidth = 600
-
-            for (j = 0; j < numb; j++ ){
-                btop[j] = recobj.object[j].bbox[0]
-                bleft[j] = recobj.object[j].bbox[1]
-                bbottom[j] = recobj.object[j].bbox[2]
-                bright[j] = recobj.object[j].bbox[3]
-
-                var bbox = document.getElementById("bbox"+j)
-
-                bbox.style.top = btop[j]+"px"
-                bbox.style.left = bleft[j]+"px"
-                bbox.style.bottom = (iHeight - bbottom[j]) +"px"
-                bbox.style.right = (iWidth - bright[j]) +"px"
-                bbox.style.border = "2px solid #FF0000"
-                bbox.style.position = "absolute"
-            }
-
-        })
-    }
-
-    // jika image di click
-    function clickHotspotImage(event) {
-        var xCoordinate = event.offsetX
-        var yCoordinate = event.offsetY
-        // console.log(xCoordinate, yCoordinate)
-        // console.log(yCoordinate, btop)
-        if (xCoordinate >= bleft[0] && xCoordinate <= bright[0]) {
-            if (yCoordinate >= btop[0] && yCoordinate <= bbottom[0]) {
-                console.log(xCoordinate, yCoordinate, "object 1")
-            }
-        }else if(xCoordinate >= bleft[1] && xCoordinate <= bright[1]){
-            if (yCoordinate >= btop[1] && yCoordinate <= bbottom[1]) {
-                console.log(xCoordinate, yCoordinate, "object 2")
-            }
-        }else if(xCoordinate >= bleft[2] && xCoordinate <= bright[2]){
-            if (yCoordinate >= btop[2] && yCoordinate <= bbottom[2]) {
-                console.log(xCoordinate, yCoordinate, "object 3")
-            }
-        }else if(xCoordinate >= bleft[3] && xCoordinate <= bright[3]){
-            if (yCoordinate >= btop[3] && yCoordinate <= bbottom[3]) {
-                console.log(xCoordinate, yCoordinate, "object 4")
-            }
-        }else if(xCoordinate >= bleft[4] && xCoordinate <= bright[4]){
-            if (yCoordinate >= btop[4] && yCoordinate <= bbottom[4]) {
-                console.log(xCoordinate, yCoordinate, "object 5")
-            }
-        }else if(xCoordinate >= bleft[5] && xCoordinate <= bright[5]){
-            if (yCoordinate >= btop[5] && yCoordinate <= bbottom[5]) {
-                console.log(xCoordinate, yCoordinate, "object 6")
-            }
-        }else if(xCoordinate >= bleft[6] && xCoordinate <= bright[6 ]){
-            if (yCoordinate >= btop[6] && yCoordinate <= bbottom[6]) {
-                console.log(xCoordinate, yCoordinate, "object 7")
-            }
-        }
-    }
-
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 {% endblock %}

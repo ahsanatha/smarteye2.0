@@ -40,11 +40,9 @@ def dashboard():
 # TODO: 122 masih static, json masih testing dan static
 @app.route('/fetch/bbox', methods=['GET'])
 def bbox():
-    with open('0.json') as json_file:
+    with open('static/Json Result 0/result.json') as json_file:
         data = json.load(json_file)
-        # give dinamic
-        # 122 adalah nomor frame
-        return data['data'][122]
+        return jsonify(data['data'][int(request.args.get('fr'))])
 
 @app.route('/lapor', methods=['POST'])
 def lapor():
