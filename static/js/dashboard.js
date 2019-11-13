@@ -62,6 +62,7 @@ var theInterval;
 var selectedFrame;
 var cam;
 var box;
+var recjson, btop, bbottom, bleft, bright, recobj, bboxes= []
 
 vid.onplay = function () {
     theInterval = setInterval(function () { getCurrentVideoFrame() }, (1000 / frameRate))
@@ -82,7 +83,7 @@ function takeFrame() {
     cam = cam[cam.length - 1]
     $.post('../fetch/bbox',{ cam:cam, fr: selectedFrame },
     function (response, status) {
-        console.log('res',response)
+        // console.log('res',response)
         recjson = response
         var hotspot_image = document.getElementById('hotspot_image')
         var box = document.getElementById('box')
@@ -98,7 +99,7 @@ function takeFrame() {
 
 
         for (var i = 0; i < numb; i++) {
-            console.log("iii", i)
+            // console.log("iii", i)
             node = document.createElement("div");
             node.id = "bbox" + i
             node.className = "bbox"
@@ -124,8 +125,8 @@ function takeFrame() {
             iWidth = im.width
             var ratio = iHeight / iWidth
             var parentBoxW = box.offsetWidth
-            console.log("width", parentBoxW)
-            console.log("height:", parentBoxW * ratio)
+            // console.log("width", parentBoxW)
+            // console.log("height:", parentBoxW * ratio)
             var parentBoxH = parentBoxW * ratio
 
             for (j = 0; j < numb; j++) {
@@ -136,7 +137,7 @@ function takeFrame() {
 
                 var bbox = document.getElementById("bbox" + j)
 
-                console.log("jj", bboxes[j])
+                // console.log("jj", bboxes[j])
                 // bbox.style.top = (btop/iHeight)*parentBoxH+"px"
                 // bbox.style.left = (bleft/iWidth)*parentBoxW+"px"
                 // bbox.style.bottom = (parentBoxH - ((bbottom/iHeight)*parentBoxH)) +"px"
@@ -151,7 +152,8 @@ function takeFrame() {
             }
         }
 
-        im.src = imageData;
+        im.src = '../static/'+imageData;
+        console.log(imageData)
         hotspot_image.src = im.src
     });
 }
@@ -189,6 +191,6 @@ function clicker(id) {
     // console.log(bboxes)
     // console.log( document.getElementById('bbox'+id))
     console.log("person ke", id)
-    console.log("features:", recobj.data.object[id].feature)
+    console.log("features:", recobj.object[id].feature)
 }
 
