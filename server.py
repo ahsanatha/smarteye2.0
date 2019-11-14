@@ -33,7 +33,7 @@ def dashboard():
             camera = request.form.get('Camera')
     if not os.path.exists('static\\vid\\'+camera.split()[0]+'_'+camera.split()[1]+'.mpd'):
         camera = generateOneVideo('static\\'+camera)
-        return render_template('dashboard.html', cameras = cameras, camera=camera)
+        return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1]  )
     else :
         return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
 
@@ -54,7 +54,6 @@ def lapor():
     report['elapsed'] = str(time.time())
     report['date'] = str(datetime.now().date())
     report['time'] = str(datetime.now().time())[:8]
-    # print(report)
     with open(report_dir) as data_file:    
         old_data = json.load(data_file)
     old_data['report'].append(report)
