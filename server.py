@@ -32,15 +32,18 @@ def dashboard():
         else :
             camera = request.form.get('Camera')
     return render_template('dashboard.html', cameras = cameras, camera=camera)
-    # if not os.path.exists('static\\vid\\'+camera.split()[0]+'_'+camera.split()[1]+'.mpd'):
-    #     camera = generateOneVideo('static\\'+camera)
-    #     return render_template('dashboard.html', cameras = cameras, camera=camera)
-    # else :
         
 
 @app.route('/fetch/bbox', methods=['POST'])
 def bbox():
     with open('static/Json Result '+str(request.form.get('cam'))+'/result.json') as json_file:
+        data = json.load(json_file)
+        return jsonify(data['data'][int(request.form.get('fr'))])
+
+
+@app.route('/fetch/face', methods=['POST'])
+def face():
+    with open('static/Face Result '+str(request.form.get('cam'))+'/result.json') as json_file:
         data = json.load(json_file)
         return jsonify(data['data'][int(request.form.get('fr'))])
 
