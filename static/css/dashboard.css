@@ -85,6 +85,15 @@ body {
 	font-weight: bold;
 	padding: 10px;
 }
+#buildings .caml a{
+	text-decoration: none;
+	color: #000;
+	background: #fff;
+	border-width: 10px;
+	padding: 10px;
+	margin: 10px auto; 
+	display: block
+}
 
 
 
@@ -101,10 +110,10 @@ body {
 	padding: 45px 40px;
 	text-align: center;
 	font-weight: 800;
-font-size: 22px;
-line-height: 27px;
-color: #000;
-margin-bottom: 60px;
+	font-size: 22px;
+	line-height: 27px;
+	color: #000;
+	margin-bottom: 60px;
 }
 
 #menu .butt {
@@ -152,10 +161,6 @@ margin-bottom: 60px;
 #menu #logout div {
 	background: url("../img/logout.png");
 }
-
-/* .caml {
-	display: none;
-} */
 
 .ha1 {
 	font-weight: 500;

@@ -24,12 +24,6 @@
 <div class='ha2'>
     Suspect Tracking
 </div>
-<!-- <div class='dimana'>
-    Gedung A - Cam 1 [LIVE]
-</div> -->
-<!-- <div class='timestamp'>
-    18:00:01 - 21 September 2019
-</div> -->
 <div style=" margin:0 auto;">
     <div class='vid'>
         <div class='vid-mask'>
@@ -43,7 +37,6 @@
             </video>
         </div>
     </div>
-    <div class='laporkan' id='laporkan'>LAPORKAN</div>
 
     <div id='pelapor'>
         <h2>Apa yang terjadi?</h2>
@@ -61,27 +54,27 @@
 <div class='vidgrid' style="margin:0 -10px">
     <div class="col" style="max-width:300px; margin:0 10px">
         <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_0.mpd') }}">
+            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/suspect2.mpd') }}">
             </video>
         </div>
         <h3>Footage 1</h3>
-        <h4>Gedung A cam 1</h4>
+        <h4>Building A cam 1</h4>
     </div>
     <div class="col" style="max-width:300px; margin:0 10px">
         <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/Rec_1.mpd') }}">
-            </video>
-        </div>
-        <h3>Footage 1</h3>
-        <h4>Gedung A cam 1</h4>
-    </div>
-    <div class="col" style="max-width:300px; margin:0 10px">
-        <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/Rec_2.mpd') }}">
+            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/suspect1.mpd') }}">
             </video>
         </div>
         <h3>Footage 2</h3>
-        <h4>Gedung A cam 2</h4>
+        <h4>Building A cam 2</h4>
+    </div>
+    <div class="col" style="max-width:300px; margin:0 10px">
+        <div class='vid-mask'>
+            <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/suspect5.mpd') }}">
+            </video>
+        </div>
+        <h3>Footage 3</h3>
+        <h4>Building B cam 2</h4>
     </div>
 </div>
 </div>

@@ -80,7 +80,8 @@ function takeFrame() {
     fr = getCurrentVideoFrame()
     selectedFrame = fr
     cam = window.location.href.split('/')
-    cam = cam[cam.length - 1]
+    cam = (parseInt(cam[cam.length - 1])+1).toString()
+    console.log(cam)
     $.post('../fetch/bbox',{ cam:cam, fr: selectedFrame },
     function (response, status) {
         // console.log('res',response)

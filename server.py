@@ -13,7 +13,7 @@ import math
 
 app = Flask(__name__)
 
-cam_name = "Rec "
+cam_name = "playback"
 
 @app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
@@ -31,11 +31,12 @@ def dashboard():
             camera = cam_name+"0"
         else :
             camera = request.form.get('Camera')
-    if not os.path.exists('static\\vid\\'+camera.split()[0]+'_'+camera.split()[1]+'.mpd'):
-        camera = generateOneVideo('static\\'+camera)
-        return render_template('dashboard.html', cameras = cameras, camera=camera)
-    else :
-        return render_template('dashboard.html', cameras = cameras, camera=camera.split()[0]+'_'+camera.split()[1])
+    return render_template('dashboard.html', cameras = cameras, camera=camera)
+    # if not os.path.exists('static\\vid\\'+camera.split()[0]+'_'+camera.split()[1]+'.mpd'):
+    #     camera = generateOneVideo('static\\'+camera)
+    #     return render_template('dashboard.html', cameras = cameras, camera=camera)
+    # else :
+        
 
 @app.route('/fetch/bbox', methods=['POST'])
 def bbox():
@@ -54,7 +55,6 @@ def lapor():
     report['elapsed'] = str(time.time())
     report['date'] = str(datetime.now().date())
     report['time'] = str(datetime.now().time())[:8]
-    # print(report)
     with open(report_dir) as data_file:    
         old_data = json.load(data_file)
     old_data['report'].append(report)
@@ -68,8 +68,8 @@ def dash():
 
 @app.route('/cam/<id>')
 def cam(id):
-    camera = 'Rec '+str(id)
-    filename = camera.split()[0]+'_'+camera.split()[1]
+    camera = 'playback'+str(int(id)+1)
+    filename = camera
     return render_template('cam.html',camera = camera, filename = filename, id=int(id)+1)
 
 @app.route('/live/<id>')
@@ -109,4 +109,4 @@ def getFrame():
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(port =3000,debug = True)
+    app.run(host='0.0.0.0',port =3000,debug = True)
