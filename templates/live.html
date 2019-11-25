@@ -20,30 +20,78 @@
     .bbox:hover {
         border-color: #f00 !important;
     }
+
+    /* The alert message box */
+    .alert {
+        padding: 20px;
+        background-color: white;
+        /* Red */
+        color: black;
+        margin-bottom: 15px;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: black;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }
+
+    .modal-body p {
+        margin: 10px 0;
+    }
 </style>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Suspect is Found!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="display:block;">
+                <img style="max-width: 300px; margin: 10px 0"
+                    src="{{ url_for('static', filename='suspect/suspect1.jpg') }}" alt="">
+                <p>Caught at 11:40 am</p>
+                <p>Go Meet Mr. Tatang (+628479827398) at Gate A</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        We Found The Suspect!
+    </button>
+
+</div>
 <div class='ha2'>
     Suspect Tracking
 </div>
 <div style=" margin:0 auto;">
-    <div class='vid'>
+    <div class='vid' style=" margin:0 auto;" >
         <div class='vid-mask'>
-            <div id='framer'>
-                <div id='box'>
-                    <img id="hotspot_image" src="" alt="Hotspot image" />
-                </div>
-            </div>
-            <video id='vid' autoplay="" preload="none" controls="true">
-                <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
-            </video>
-        </div>
-    </div>
-
-    <div id='pelapor'>
-        <h2>Apa yang terjadi?</h2>
-        <input type='text' name='laporan' id='title' placeholder='Example: Pencurian Sepatu'>
-        <br>
-        <div class='flexlapor'>
-            <a id='lapor'>LAPORKAN</a> <a id='cancel'>KEMBALI</a>
+                <video id='vid' autoplay="" preload="none" controls="true">
+                    <source src="http://[::1]/vid/fb2/fb2.mpd" type="application/dash+xml">
+                </video>
         </div>
     </div>
 </div>
@@ -51,24 +99,24 @@
 <div class='ha2' id>
     Suspect Path
 </div>
-<div class='vidgrid' style="margin:0 -10px">
-    <div class="col" style="max-width:300px; margin:0 10px">
+<div class='vidgrid'>
+    <div class="col" id='vid1'>
         <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/suspect2.mpd') }}">
+            <video data-dashjs-player controls src="{{ url_for('static', filename='vid/suspect2.mpd') }}">
             </video>
         </div>
         <h4>Building A cam 1</h4>
     </div>
-    <div class="col" style="max-width:300px; margin:0 10px">
+    <div class="col" id='vid2'>
         <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid1' src="{{ url_for('static', filename='vid/suspect1.mpd') }}">
+            <video data-dashjs-player controls src="{{ url_for('static', filename='vid/suspect1.mpd') }}">
             </video>
         </div>
         <h4>Building A cam 2</h4>
     </div>
-    <div class="col" style="max-width:300px; margin:0 10px">
+    <div class="col" id='vid3'>
         <div class='vid-mask'>
-            <video data-dashjs-player controls id='vid2' src="{{ url_for('static', filename='vid/suspect5.mpd') }}">
+            <video data-dashjs-player controls src="{{ url_for('static', filename='vid/suspect5.mpd') }}">
             </video>
         </div>
         <h4>Building B cam 2</h4>
@@ -78,9 +126,51 @@
 </div>
 {% endblock %}
 {% block script %}
+<script>
+    notif = document.getElementsByClassName('alert')[0]
+    console.log(notif)
+    notif.style.display = "none"
+    // setTimeout(function () {
+    //     notif.style.display = "block"
+    // }, 14 * 1000)
+    function reload() {
+        var container = document.getElementById("vid");
+        var content = container.innerHTML;
+        container.innerHTML = content;
+        //this line is to watch the result in console , you can remove it later	
+        console.log("Refreshed");
+    }
+    document.getElementById('vid').addEventListener('ended', myHandler, false);
+    function myHandler(e) {
+        // What you want to do after the event
+    }
+    $(document).ready(function () {
+        //live
+        // setTimeout(function () {
+        //     target = document.getElementById('vid');
+        //     source = target.getElementsByTagName('source')[0];
+        //     // console.log(source)
+        //     // source.parentNode.removeChild(source);
+        //     source.src = "{{ url_for('static', filename='vid/suspect2.mpd') }}";
+        //     reload()
+        // }, 6 * 1000);
+        // path
+        setTimeout(function () {
+            target = document.getElementById('vid1');
+            console.log(target)
+            target.style.display = 'block';
+        }, 1 * 1000);
+        setTimeout(function () {
+            target = document.getElementById('vid2');
+            console.log(target)
+            target.style.display = 'block';
+        }, 2 * 1000);
+        setTimeout(function () {
+            target = document.getElementById('vid3');
+            console.log(target)
+            target.style.display = 'block';
+        }, 3 * 1000);
+    });
 
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</script>
 {% endblock %}

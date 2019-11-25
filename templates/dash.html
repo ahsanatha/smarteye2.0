@@ -1,16 +1,18 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../static/css/dashboard.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/dashboard.css">
     <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
     <style>
         #side1 h2 {
@@ -30,24 +32,29 @@
         #caml2 {
             display: none;
         }
+
         #caml3 {
             display: none;
         }
+
         #box {
             position: relative;
             display: table;
             width: 100%;
         }
+
         #box img {
             display: block;
             width: 100%;
         }
+
         .bbox {
             position: absolute;
             /*pointer-events: none;*/
         }
+
         .bbox:hover {
-            border-color: #f00!important;
+            border-color: #f00 !important;
         }
     </style>
     <title>Smart Eye</title>
@@ -62,17 +69,17 @@
         </a>
         <div id='menu'>
             <h1>Smart<br />Eye</h1>
-            
+
             <a href='/' id="dashboard" class='butt'>
                 <div></div>
                 <span>Dashboard</span>
             </a>
-    
+
             <a href='/' id="profile" class='butt'>
                 <div></div>
                 <span>Profile</span>
             </a>
-    
+
             <a href="/" id="logout" class='butt'>
                 <div></div>
                 <span>Log Out</span>
@@ -89,15 +96,12 @@
                     <a href="/cam/0">Artificial Intelligence Laboratory</a>
                     <a href="/cam/1">Computing Laboratory</a>
                 </div>
-                <div class='gedung' id='B'>Schhol of Industry Building</div>
+                <div class='gedung' id='B'>School of Industry Building</div>
                 <div id='caml2' class='caml'>
-                    <a href="/cam/3">Computing Laboratory</a>
+                    <a href="/cam/2">Car Parking Lot</a>
+                    <a href="/cam/3">Motorcycle Parking Lot</a>
+                    <a href="/cam/4">Football Field</a>
                 </div>
-                <div class='gedung' id='C'>Building C</div>
-                <div id='caml3' class='caml'>
-                    <a href="/cam/2">cam 3</a>
-                </div>
-                <div class='gedung'>Building D</div>
             </div>
         </div>
         <div id='side2'>
@@ -105,11 +109,12 @@
             {% block camera %} {% endblock %}
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="../static/js/dashboard.js"></script>
     {% block script %}
 
     {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/dashboard.js"></script>
+
 
 </body>
 

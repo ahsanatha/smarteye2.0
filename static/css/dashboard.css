@@ -209,10 +209,14 @@ margin: 20px 0;
 
 .vidgrid {
 	display: flex;
+	margin:0 -10px;
 }
 
 .vidgrid .col {
 	flex: 1;
+	max-width:300px; 
+	margin:0 10px;
+	display: none;
 }
 
 .vidgrid .col h3 {

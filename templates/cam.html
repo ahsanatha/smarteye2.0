@@ -21,12 +21,12 @@
         border-color: #f00 !important;
     }
 </style>
-<div >
+<div>
     <div class='ha2'>
         Pick The Suspect
     </div>
     <div class='dimana'>
-        Building A - Cam {{ id }}
+        {{ tempat[0] }} - {{ tempat[1] }}
     </div>
 </div>
 <div style="max-width: 700px; margin:0 auto;">
@@ -34,7 +34,7 @@
         <div class='vid-mask'>
             <div id='framer'>
                 <div id='box'>
-                    <img id="hotspot_image" src=""/>
+                    <img id="hotspot_image" src="" />
                 </div>
             </div>
             <video data-dashjs-player controls id='vid' src="../static/vid/{{ filename }}.mpd">
@@ -57,9 +57,229 @@
 </div>
 {% endblock %}
 {% block script %}
+<script>
+
+    var laporkan = document.getElementById('laporkan');
+    var pelapor = document.getElementById('pelapor');
+    var cancel = document.getElementById('cancel');
+    var framer = document.getElementById('framer');
+
+    pelapor.style.display = "none";
+    framer.style.display = "none";
+
+    laporkan.onclick = function () {
+        laporkan.style.display = "none";
+        pelapor.style.display = "block";
+        framer.style.display = "block";
+        takeFrame()
+    }
+
+    cancel.onclick = function () {
+        laporkan.style.display = "block";
+        pelapor.style.display = "none";
+        framer.style.display = "none";
+        canc();
+        return false;
+    }
+
+    var vid = document.getElementById("vid")
+    var frameRate = 30
+    var theInterval;
+    var selectedFrame;
+    var cam;
+    var box;
+    var recjson, btop, bbottom, bleft, bright, recobj, bboxes = []
+    var xx, im;
+    var ratio, parentBoxW, parentBoxH
+    var box = document.getElementById('box')
+    var iHeight, iWidth
+    
+    document.addEventListener("DOMContentLoaded", function (event) {
+        //do work
+        parentBoxW = 700
+        parentBoxH = parentBoxW * 0.75
+    });
+
+    vid.onplay = function () {
+        theInterval = setInterval(function () { getCurrentVideoFrame() }, (1000 / frameRate))
+    }
+    vid.onpause = function () {
+        clearInterval(theInterval)
+    }
+
+    function getCurrentVideoFrame() {
+        curTime = vid.currentTime
+        theCurrentFrame = Math.floor(curTime * frameRate)
+        return theCurrentFrame
+    }
+    function takeFrame() {
+        fr = getCurrentVideoFrame()
+        selectedFrame = fr
+        cam = window.location.href.split('/')
+        cam = (parseInt(cam[cam.length - 1]) + 1).toString()
+        // console.log(cam)
+
+        var result = fetch('../fetch/bbox',
+            {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'cam': cam, 'fr': selectedFrame })
+            })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (text) {
+                // console.log(text)
+                recjson = text
+                var hotspot_image = document.getElementById('hotspot_image')
+                recobj = JSON.parse(recjson)
+                var imageData = recobj.image
+                im = new Image();
+
+                var numb, node
+                numb = recobj.object.length
+
+
+                for (var i = 0; i < numb; i++) {
+                    console.log("iii", i)
+                    node = document.createElement("div");
+                    node.id = "bbox" + i
+                    node.className = "bbox"
+                    var tes = recobj.object[i].feature
+                    var kkk = i
+                    node.setAttribute("onclick", "clicker(" + i + ");");
+                    box.appendChild(node)
+                    bboxes.push(node)
+                }
+                // var bbox = document.getElementById("bbox")
+                console.log(bboxes)
+                im.onload = function () {
+                    console.log('image loaded')
+                    iHeight = im.height
+                    iWidth = im.width
+                    ratio = iHeight / iWidth
+
+                    console.log("width", parentBoxW)
+                    console.log("heifght:", parentBoxW * ratio)
+
+                    for (j = 0; j < numb; j++) {
+                        btop = recobj.object[j].bbox[0]
+                        bleft = recobj.object[j].bbox[1]
+                        bbottom = recobj.object[j].bbox[2]
+                        bright = recobj.object[j].bbox[3]
+
+                        var bbox = document.getElementById("bbox" + j)
+
+                        console.log("jj", bboxes[j])
+
+                        bbox.style.top = (btop / iHeight) * 100 + "%"
+                        bbox.style.left = (bleft / iWidth) * 100 + "%"
+                        bbox.style.bottom = (parentBoxH - ((bbottom / iHeight) * parentBoxH)) / parentBoxH * 100 + "%"
+                        bbox.style.right = (parentBoxW - ((bright / iWidth) * parentBoxW)) / parentBoxW * 100 + "%"
+                        bbox.style.border = "2px solid transparent"
+                        bbox.style.position = "absolute"
+                    }
+                }
+                console.log('harusnya setelah')
+
+                im.src = '../static/' + imageData;
+                hotspot_image.src = im.src
+
+                return fetch('../fetch/face', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 'cam': cam, 'fr': selectedFrame })
+                })
+            }).then(function (response) {
+                // console.log(response)
+                return response.json();
+            })
+            ;
+
+        result.then(function (r) {
+            console.log('ini kotak face', r.face_box[fr].object); // 2nd request result
+            xx = r.face_box[fr].object.length
+            node = document.createElement("div");
+            node.id = "fbox"
+            node.className = "fbox"
+
+            btop = r.face_box[fr].object[0][1]
+            bleft = r.face_box[fr].object[0][0]
+            bbottom = r.face_box[fr].object[0][3] + r.face_box[fr].object[0][1]
+            bright = r.face_box[fr].object[0][2] + r.face_box[fr].object[0][0]
+
+            node.style.top = (btop / iHeight) * 100 + "%"
+            node.style.left = (bleft / iWidth) * 100 + "%"
+            node.style.bottom = (parentBoxH - ((bbottom / iHeight) * parentBoxH)) / parentBoxH * 100 + "%"
+            node.style.right = (parentBoxW - ((bright / iWidth) * parentBoxW)) / parentBoxW * 100 + "%"
+            // node.style.border = "2px solid rgb(0, 255, 55)"
+            node.style.border = "2px solid transparent"
+            node.style.position = "absolute"
+
+            console.log(parentBoxH, parentBoxW)
+
+
+            box.appendChild(node)
+            // bboxes.push(node)
+        });
+
+    }
+    lapor = document.getElementById('lapor')
+    lapor.onclick = function () {
+        title = document.getElementById('title').value
+        reporter = 'Guest 1' //nanti ganti pake session
+        image = document.getElementById('suspect').src;
+        place = "lab AI" //nanti diganti pake nama kamera
+        $.post('/lapor', { title, reporter, image, place },
+            function (data, status) {
+                if (status == "success") {
+                    console.log(data)
+                } else {
+                    console.error(status)
+                }
+            })
+    }
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    function clicker(id) {
+        var tebox = document.getElementById('bbox' + id)
+        if (xx != 0) {
+            var fabox = document.getElementById('fbox')
+        }
+        // console.log('fabox',fabox)
+        for (i = 0; i < bboxes.length; i++) {
+            if (i != id) {
+                bboxes[i].style.border = "2px solid transparent"
+                // fabox.style.border = "2px solid transparent"
+            } else {
+                bboxes[i].style.border = "2px solid #f00"
+                // fabox.style.border = "2px solid rgb(0, 255, 55)"
+            }
+        }
+        tebox.style.border = "2px solid #f00"
+        if (xx != 0) {
+            // var fabox = document.getElementById('fbox')
+            fabox.style.border = "2px solid rgb(0, 255, 55)"
+        }
+        // console.log(bboxes)
+        // console.log(document.getElementById('bbox' + id))
+        console.log("person ke", id)
+        console.log("features:", recobj.object[id].feature)
+    }
+    function canc() {
+        for (i = 0; i < bboxes.length; i++) {
+            bboxes[i].style.border = "2px solid transparent"
+
+        }
+    }
+
+</script>
 {% endblock %}

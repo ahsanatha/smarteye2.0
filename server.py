@@ -36,16 +36,18 @@ def dashboard():
 
 @app.route('/fetch/bbox', methods=['POST'])
 def bbox():
-    with open('static/Json Result '+str(request.form.get('cam'))+'/result.json') as json_file:
+    # print('static/Json Result '+str(request.json['fr'])+'/result.json')
+    with open('static/Json Result '+str(request.json['cam'])+'/result.json') as json_file:
         data = json.load(json_file)
-        return jsonify(data['data'][int(request.form.get('fr'))])
+        # print(data['data'][int(request.json['fr'])])
+        return jsonify(data['data'][int(request.json['fr'])])
 
 
 @app.route('/fetch/face', methods=['POST'])
 def face():
-    with open('static/Face Result '+str(request.form.get('cam'))+'/result.json') as json_file:
+    with open('static/Face Result '+str(request.json['cam'])+'/result.json') as json_file:
         data = json.load(json_file)
-        return jsonify(data['data'][int(request.form.get('fr'))])
+        return jsonify(data)
 
 @app.route('/lapor', methods=['POST'])
 def lapor():
@@ -67,13 +69,22 @@ def lapor():
     
 @app.route('/dash')
 def dash():
-    return render_template('index.html')
+    return render_template('indexx.html')
 
 @app.route('/cam/<id>')
 def cam(id):
+    tempat = [
+        ['School of Informatics Building','Artificial Intelligence Laboratory'],
+        ['School of Informatics Building','Computing Laboratory'],
+        ['School of Industry Building','Car Parking Lot'],
+        ['School of Industry Building','Motorcycle Parking Lot'],
+        ['School of Industry Building','Field Between Building E and F']
+    ]
+    if int(id)+1 > len(tempat):
+        id = 1
     camera = 'playback'+str(int(id)+1)
     filename = camera
-    return render_template('cam.html',camera = camera, filename = filename, id=int(id)+1)
+    return render_template('cam.html',camera = camera, filename = filename, tempat=tempat[int(id)], id=int(id))
 
 @app.route('/live/<id>')
 def live(id):
@@ -112,4 +123,4 @@ def getFrame():
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(host='0.0.0.0',port =3000,debug = True)
+    app.run(host='0.0.0.0',port =3000,debug = False)
